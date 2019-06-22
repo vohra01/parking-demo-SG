@@ -1,0 +1,3 @@
+INSERT INTO NOTIFICATIONS(ID, MESSAGE, EMAIL, COST) VALUES (1, 'message sent', 'email sent', 49);
+INSERT INTO NOTIFICATIONS(ID, MESSAGE, EMAIL, COST) VALUES (2, 'message sent', 'email sent', 99);
+INSERT INTO NOTIFICATIONS(ID, MESSAGE, EMAIL, COST) VALUES (3, 'message sent', 'email sent',500);
