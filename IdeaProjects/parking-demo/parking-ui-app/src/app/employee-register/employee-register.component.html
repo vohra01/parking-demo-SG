@@ -1,0 +1,140 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="register-employee">Register Vehicle</h4>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="!saving">
+      <form [formGroup]="employeeForm" (ngSubmit)="onSubmit(employeeForm.value)">
+        <label for="dateOfBirth">First Name : </label>
+        <div class="input-group">
+          <input id="firstName"
+                 class="form-control"
+                 placeholder="Enter first name"
+                 name="firstName"
+                 [formControl]="employeeForm.controls['firstName']">
+          <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
+              Please enter first name.
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth">Last Name : </label>
+        <div class="input-group">
+          <input id="lastName"
+                 class="form-control"
+                 placeholder="Enter last Name"
+                 name="lastName"
+                 [formControl]="employeeForm.controls['lastName']">
+          <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback">
+            Please enter last name.
+          </div>
+        </div>
+      </div>
+
+        <div class="form-group">
+        <label for="dateOfBirth">isForHandicap </label>
+        <div class="input-group">
+
+          <input type="checkbox"
+            id="forHandicap"
+                 class="form-control"
+                 name="forHandicap"
+                 [formControl]="employeeForm.controls['forHandicap']">
+          <div *ngIf="forHandicap.invalid && (forHandicap.dirty || forHandicap.touched)" class="invalid-feedback">
+            Please enter last name.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Gender</label>
+          <select  id="gender" class="form-control" placeholder="Gender" name="gender"  [formControl]="employeeForm.controls['gender']" >
+            <option value="MALE">Male</option>
+            <option value="FEMALE">female</option>
+          </select>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="invalid-feedback">
+          Please select gender.
+        </div>
+      </div>
+
+        <div class="form-group">
+        <label for="size">Size</label>
+          <select  id="size" class="form-control" placeholder="Size" name="size"  [formControl]="employeeForm.controls['size']" >
+            <option value="MEDIUM">Biig</option>
+            <option value="SMALL">Small</option>
+          </select>
+        <div *ngIf="size.invalid && (size.dirty || size.touched)" class="invalid-feedback">
+          Please select size.
+        </div>
+      </div>
+
+        <div class="form-group">
+        <label for="type">Vehicle Type</label>
+          <select  id="type" class="form-control" placeholder="Vehicle Type" name="type"  [formControl]="employeeForm.controls['type']" >
+            <option value="CAR">Biig</option>
+            <option value="BIKE">Small</option>
+          </select>
+        <div *ngIf="type.invalid && (type.dirty || type.touched)" class="invalid-feedback">
+          Please select type.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="department">Department : </label>
+        <div class="input-group">
+          <input id="department"
+                 class="form-control"
+                 placeholder="Enter Department"
+                 name="department"
+                 [formControl]="employeeForm.controls['department']" >
+            <div *ngIf="department.invalid && (department.dirty || department.touched)" class="invalid-feedback">
+              Please enter department.
+            </div>
+        </div>
+      </div>
+
+        <div class="form-group">
+        <label for="licensePlate">Department : </label>
+        <div class="input-group">
+          <input id="licensePlate"
+                 class="form-control"
+                 placeholder="Enter Department"
+                 name="licensePlate"
+                 [formControl]="employeeForm.controls['licensePlate']" >
+            <div *ngIf="licensePlate.invalid && (licensePlate.dirty || licensePlate.touched)" class="invalid-feedback">
+              Please enter licensePlate.
+            </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth">Date of employee : </label>
+        <div class="input-group">
+          <input id="dateOfBirth"
+                 class="form-control"
+                 placeholder="dd/mm/yyyy"
+                 name="dateOfBirth"
+                 [formControl]="employeeForm.controls['dateOfBirth']">
+
+          <div *ngIf="dateOfBirth.hasError('invalidDate') && (dateOfBirth.dirty || dateOfBirth.touched)" class="invalid-feedback">
+            Please enter a valid date.
+          </div>
+          <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched) && !dateOfBirth.hasError('invalidDate')" class="invalid-feedback">
+            Please enter date of birth.
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark"  (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn btn-outline-success"  [disabled]="!employeeForm.valid">Save</button>
+      </div>
+    </form>
+    </div>
+    <div *ngIf="saving" class="loader loading-image"></div>
+  </div>
+</ng-template>
+
+
+<div class="btn btn-primary" (click)="open(content)" alt="Register Employee">+</div>

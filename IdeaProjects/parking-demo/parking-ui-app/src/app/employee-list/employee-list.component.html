@@ -1,0 +1,32 @@
+
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Gender</th>
+    <th>Number</th>
+    <th>Department</th>
+    <th>Date Of Birth</th>
+    <th>Handicap</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let employee of employees">
+    <td>{{employee.firstName}}</td>
+    <td>{{employee.lastName}}</td>
+    <td>{{employee.gender}}</td>
+    <td>{{employee.licensePlate}}</td>
+    <td>{{employee.department}}</td>
+    <td>{{employee.dateOfBirth}}</td>
+    <td>{{employee.forHandicap ? 'Yes' : 'No'}}</td>
+    <td> <div class="col-lg-2">
+      <button type="button" class="btn btn-danger" (click)='registerEmployee(employee)' data-dismiss="modal">Exit</button>
+    </div></td>
+  </tr>
+  </tbody>
+</table>
+
+
