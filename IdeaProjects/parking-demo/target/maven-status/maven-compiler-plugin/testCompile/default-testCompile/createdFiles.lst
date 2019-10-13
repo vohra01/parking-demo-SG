@@ -1,0 +1,5 @@
+com/jinternal/employee/services/EmployeeServiceTest.class
+com/jinternal/employee/ApplicationTests.class
+com/jinternal/employee/EmployeeTestUtils.class
+com/jinternal/employee/repositories/EmployeeRepositoryTest.class
+com/jinternal/employee/controllers/EmployeeControllerTest.class
