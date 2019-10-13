@@ -5,29 +5,35 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.jinternal.employee.configuration.EmployeeConfiguration;
+import com.jinternal.employee.configuration.ParkingConfiguration;
 import com.jinternal.employee.entities.Employee;
 import com.jinternal.employee.entities.Gender;
+import com.jinternal.employee.enums.enums.Size;
+import com.jinternal.employee.enums.enums.VehicleType;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
-import static com.jinternal.employee.entities.EmployeeBuilder.employee;
+import static com.jinternal.employee.entities.ParkingBuilder.employee;
 import static java.time.LocalDate.now;
 import static java.time.format.DateTimeFormatter.ofPattern;
 
-public class EmployeeTestUtils {
-    public static Employee anEmployee(String firstName, String lastName) {
+public class ParkingTestUtils {
+    public static Employee aVehicle(String firstName, String lastName) {
         return employee()
                 .withFirstName(firstName)
                 .withLastName(lastName)
                 .withGender(Gender.MALE)
                 .withDepartment("Some-department")
                 .withDateOfBirth(now().minusYears(29))
+                .withSize(Size.MEDIUM)
+                .withType(VehicleType.CAR)
+                .withLicensePlate("MH12MX-0734")
                 .build();
     }
-    public static Employee anEmployee(Long id, String firstName, String lastName) {
-        Employee employee = anEmployee(firstName,lastName);
+
+    public static Employee aVehicle(Long id, String firstName, String lastName) {
+        Employee employee = aVehicle(firstName, lastName);
         employee.setId(id);
         return employee;
     }
@@ -43,8 +49,8 @@ public class EmployeeTestUtils {
     public static ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
-        module.addDeserializer(LocalDate.class, new LocalDateDeserializer(ofPattern(EmployeeConfiguration.DATE_FORMAT)));
-        module.addSerializer(LocalDate.class, new LocalDateSerializer(ofPattern(EmployeeConfiguration.DATE_FORMAT)));
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer(ofPattern(ParkingConfiguration.DATE_FORMAT)));
+        module.addSerializer(LocalDate.class, new LocalDateSerializer(ofPattern(ParkingConfiguration.DATE_FORMAT)));
         mapper.registerModule(module);
         return mapper;
     }

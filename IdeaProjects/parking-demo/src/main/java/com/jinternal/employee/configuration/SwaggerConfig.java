@@ -28,8 +28,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Car Employee Lot REST API",
-                "Car Employee Lot REST API for Demo.",
+                "Car Parking Lot REST API",
+                "Car Parking Lot REST API for Demo.",
                 "1.0",
                 "Terms of service",
                 new Contact("Kunal Vohra", "https://www.linkedin.com/in/vohra01/", "vohra.kunal3@gmail.com"),

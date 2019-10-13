@@ -21,6 +21,7 @@ public class GenderValueValidator implements ConstraintValidator<Gender, String>
 
         boolean isValid =
                 object.equalsIgnoreCase(com.jinternal.employee.entities.Gender.FEMALE.toString())
+                || object.equalsIgnoreCase(com.jinternal.employee.entities.Gender.NA.toString())
                         || object.equalsIgnoreCase(com.jinternal.employee.entities.Gender.MALE.toString());
 
         return isValid;

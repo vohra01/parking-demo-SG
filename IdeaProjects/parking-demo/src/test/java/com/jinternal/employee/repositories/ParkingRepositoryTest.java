@@ -1,5 +1,6 @@
 package com.jinternal.employee.repositories;
 
+import com.jinternal.employee.ParkingTestUtils;
 import com.jinternal.employee.entities.Employee;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.jinternal.employee.EmployeeTestUtils.anEmployee;
+import static com.jinternal.employee.ParkingTestUtils.aVehicle;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.data.domain.PageRequest.of;
@@ -18,24 +19,24 @@ import static org.springframework.data.domain.PageRequest.of;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class EmployeeRepositoryTest {
+public class ParkingRepositoryTest {
 
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private ParkingRepository parkingRepository;
 
     @Test
     public void shouldFindSavedEmployeeById() {
         // given
-        Employee employee = anEmployee("mradul","pandey");
+        Employee employee = ParkingTestUtils.aVehicle("mradul","pandey");
         entityManager.persist(employee);
         entityManager.flush();
 
         // when
-        Employee found = employeeRepository.findById(employee.getId()).get();
+        Employee found = parkingRepository.findById(employee.getId()).get();
 
         // then
 
@@ -51,14 +52,14 @@ public class EmployeeRepositoryTest {
     @Test
     public void shouldFindAllTheEmployeeInPagedForm() {
         // given
-        Employee employee1 = anEmployee("mradul","pandey");
-        Employee employee2 = anEmployee("mayank","pandey");
+        Employee employee1 = ParkingTestUtils.aVehicle("mradul","pandey");
+        Employee employee2 = ParkingTestUtils.aVehicle("mayank","pandey");
         entityManager.persist(employee1);
         entityManager.persist(employee2);
         entityManager.flush();
 
         // when
-        Page<Employee> found = employeeRepository.findAll(of(0, 10, Sort.by("id")));
+        Page<Employee> found = parkingRepository.findAll(of(0, 10, Sort.by("id")));
 
         // then
 

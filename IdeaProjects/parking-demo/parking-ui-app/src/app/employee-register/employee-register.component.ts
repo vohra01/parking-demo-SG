@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmployeeService} from "../services/employee.service";
@@ -8,6 +8,7 @@ import {EmployeeService} from "../services/employee.service";
   templateUrl: './employee-register.component.html',
   styleUrls: ['./employee-register.component.css']
 })
+
 export class EmployeeRegisterComponent   {
   employeeForm: FormGroup;
   model: NgbModalRef;
@@ -21,9 +22,9 @@ export class EmployeeRegisterComponent   {
       'gender': ['',Validators.compose([Validators.required])],
       'type': ['',Validators.compose([Validators.required])],
       'size': ['',Validators.compose([Validators.required])],
-      'licensePlate': ['',Validators.compose([Validators.required])],
+      'licensePlate': ['',Validators.compose([Validators.pattern('^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$')])],
       'department': ['',Validators.compose([Validators.required])],
-      'forHandicap': ['false',Validators.compose([Validators.required])],
+      'forHandicap': ['false',Validators.compose([])],
       'dateOfBirth': ['',Validators.compose([ Validators.required,
                                                         Validators.pattern('^((0[1-9]|[12]\\d|3[01])\\/(0[1-9]|1[0-2])\\/[12]\\d{3})$'),
                                                         this.dateValidator

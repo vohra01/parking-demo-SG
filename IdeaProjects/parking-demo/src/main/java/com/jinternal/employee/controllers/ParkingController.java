@@ -6,6 +6,7 @@ import com.jinternal.employee.entities.Employee;
 import com.jinternal.employee.exception.RestException;
 import com.jinternal.employee.exception.ServiceException;
 import com.jinternal.employee.services.ParkingService;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,7 +19,7 @@ import static com.jinternal.employee.dto.EmployeeRequestDto.fromRequest;
 import static com.jinternal.employee.dto.ParkingResponseDto.toResponse;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class ParkingController {
 
     private ParkingService parkingService;
@@ -30,8 +31,9 @@ public class ParkingController {
 
     @PostMapping("/employee")
     @ResponseBody
+    @ApiResponse(code = 400,message = "failure")
     public ParkingResponseDto registerEmployee(@RequestBody @Valid EmployeeRequestDto employeeRequestDto) {
-        Employee employee = parkingService.saveEmployee(fromRequest(employeeRequestDto));
+        Employee employee = parkingService.saveMyCar(fromRequest(employeeRequestDto));
         return toResponse(employee);
     }
 
@@ -43,7 +45,7 @@ public class ParkingController {
     }
 
 
-    @PutMapping("/employee/{id}/1")
+    @PutMapping("/employee/{id}")
     @ResponseBody
     public ParkingResponseDto updateEmployee(@PathVariable("id") Long id,
                                              @RequestBody @Valid EmployeeRequestDto employeeRequestDto) throws RestException {
@@ -73,7 +75,7 @@ public class ParkingController {
         System.out.println("Came To Delete You");
         Employee employee = parkingService.getEmployee(new Long(id));
         //employee.setId(id);
-                parkingService.removeEmployee(employee);
+        parkingService.removeEmployee(employee);
         System.out.println("Deleted You");
         return new Employee();
     }

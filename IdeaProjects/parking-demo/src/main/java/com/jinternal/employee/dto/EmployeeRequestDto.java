@@ -1,7 +1,7 @@
 package com.jinternal.employee.dto;
 
 import com.jinternal.employee.entities.Employee;
-import com.jinternal.employee.entities.EmployeeBuilder;
+import com.jinternal.employee.entities.ParkingBuilder;
 import com.jinternal.employee.validators.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import static com.jinternal.employee.configuration.EmployeeConfiguration.DATE_FORMATTER;
+import static com.jinternal.employee.configuration.ParkingConfiguration.DATE_FORMATTER;
 import static java.time.LocalDate.parse;
 
 @Setter
@@ -49,13 +49,10 @@ public class EmployeeRequestDto {
     @NotNull
     private String type;
 
-    @NotNull
-    private boolean hasHandicapParkingPermit;
-
 
     public static Employee fromRequest(EmployeeRequestDto requestDto) {
 
-        return EmployeeBuilder
+        return ParkingBuilder
                 .employee()
                 .withFirstName(requestDto.firstName)
                 .withLastName(requestDto.lastName)
@@ -81,7 +78,7 @@ public class EmployeeRequestDto {
         employeeRequestDto.setSize(employee.getSize().name());
         employeeRequestDto.setType(employee.getType().name());
         employeeRequestDto.setLicensePlate(employee.getLicensePlate());
-        //employeeRequestDto.getSize(Size.LARGE);
+        employeeRequestDto.setForHandicap(true);
 
         return employeeRequestDto;
     }

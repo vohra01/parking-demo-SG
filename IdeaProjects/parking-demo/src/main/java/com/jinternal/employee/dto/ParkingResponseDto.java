@@ -1,7 +1,7 @@
 package com.jinternal.employee.dto;
 
 import com.jinternal.employee.entities.Employee;
-import com.jinternal.employee.entities.EmployeeBuilder;
+import com.jinternal.employee.entities.ParkingBuilder;
 import com.jinternal.employee.entities.Gender;
 import com.jinternal.employee.enums.enums.Size;
 import com.jinternal.employee.enums.enums.VehicleType;
@@ -36,38 +36,37 @@ public class ParkingResponseDto {
 
     private VehicleType type;
 
-    private boolean hasHandicapParkingPermit;
 
-    public static Employee from(ParkingResponseDto employeeRequestDto) {
+    public static Employee from(ParkingResponseDto parkingResponseDto) {
 
-        return EmployeeBuilder
+        return ParkingBuilder
                 .employee()
-                .withFirstName(employeeRequestDto.firstName)
-                .withLastName(employeeRequestDto.lastName)
-                .withGender(Gender.valueOf(employeeRequestDto.gender))
-                .withDepartment(employeeRequestDto.department)
-                .withSize(employeeRequestDto.size)
-                .withForHandicap(employeeRequestDto.isForHandicap)
-                .withLicensePlate(employeeRequestDto.licensePlate)
-                .withType(employeeRequestDto.type)
+                .withFirstName(parkingResponseDto.firstName)
+                .withLastName(parkingResponseDto.lastName)
+                .withGender(Gender.valueOf(parkingResponseDto.gender))
+                .withDepartment(parkingResponseDto.department)
+                .withSize(parkingResponseDto.size)
+                .withForHandicap(parkingResponseDto.isForHandicap)
+                .withLicensePlate(parkingResponseDto.licensePlate)
+                .withType(parkingResponseDto.type)
                 .build();
 
     }
 
     public static ParkingResponseDto toResponse(Employee employee) {
 
-        ParkingResponseDto employeeRequestDto = new ParkingResponseDto();
-        employeeRequestDto.setId(employee.getId());
-        employeeRequestDto.setFirstName(employee.getFirstName());
-        employeeRequestDto.setLastName(employee.getLastName());
-        employeeRequestDto.setDepartment(employee.getDepartment());
-        employeeRequestDto.setDateOfBirth(employee.getDateOfBirth());
-        employeeRequestDto.setGender(employee.getGender().toString());
-        employeeRequestDto.setSize(employee.getSize());
-        employeeRequestDto.setType(employee.getType());
-        employeeRequestDto.setLicensePlate(employee.getLicensePlate());
+        ParkingResponseDto parkingResponseDto = new ParkingResponseDto();
+        parkingResponseDto.setId(employee.getId());
+        parkingResponseDto.setFirstName(employee.getFirstName());
+        parkingResponseDto.setLastName(employee.getLastName());
+        parkingResponseDto.setDepartment(employee.getDepartment());
+        parkingResponseDto.setDateOfBirth(employee.getDateOfBirth());
+        parkingResponseDto.setGender(employee.getGender().toString());
+        parkingResponseDto.setSize(employee.getSize());
+        parkingResponseDto.setType(employee.getType());
+        parkingResponseDto.setLicensePlate(employee.getLicensePlate());
 
-        return employeeRequestDto;
+        return parkingResponseDto;
     }
 
     public static List<ParkingResponseDto> toResponse(List<Employee> employee) {

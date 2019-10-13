@@ -1,10 +1,10 @@
 package com.jinternal.employee.controllers;
 
-import com.jinternal.employee.configuration.EmployeeConfiguration;
+import com.jinternal.employee.ParkingTestUtils;
+import com.jinternal.employee.configuration.ParkingConfiguration;
 import com.jinternal.employee.dto.EmployeeRequestDto;
 import com.jinternal.employee.entities.Employee;
 import com.jinternal.employee.services.ParkingService;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -19,8 +19,8 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.jinternal.employee.EmployeeTestUtils.anEmployee;
-import static com.jinternal.employee.EmployeeTestUtils.toJson;
+import static com.jinternal.employee.ParkingTestUtils.aVehicle;
+import static com.jinternal.employee.ParkingTestUtils.toJson;
 import static com.jinternal.employee.dto.EmployeeRequestDto.to;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.when;
@@ -38,18 +38,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(EmployeeController.class)
-@Import(EmployeeConfiguration.class)
+@WebMvcTest(ParkingController.class)
+@Import(ParkingConfiguration.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 @EnableSpringDataWebSupport
-@Ignore
-public class EmployeeControllerTest {
+public class ParkingControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private EmployeeController employeeController;
+    private ParkingController parkingController;
 
     @MockBean
     private ParkingService parkingService;
@@ -59,9 +58,9 @@ public class EmployeeControllerTest {
 
     @Test
     public void shouldRegisterEmployee() throws Exception {
-        EmployeeRequestDto employee = to(anEmployee("Mradul", "Pandey"));
+        EmployeeRequestDto employee = to(ParkingTestUtils.aVehicle("Mradul", "Pandey"));
 
-        when(parkingService.saveEmployee(Mockito.any())).thenReturn(anEmployee(1L, "Mradul", "Pandey"));
+        when(parkingService.saveEmployee(Mockito.any())).thenReturn(aVehicle(1L, "Mradul", "Pandey"));
 
         String content = toJson(employee);
 
@@ -76,7 +75,11 @@ public class EmployeeControllerTest {
                                 fieldWithPath("lastName").description("Employee last name"),
                                 fieldWithPath("gender").description("Employee gender"),
                                 fieldWithPath("department").description("Employee department"),
-                                fieldWithPath("dateOfBirth").description("Employee date of birth")
+                                fieldWithPath("dateOfBirth").description("Employee date of birth"),
+                                fieldWithPath("size").description("Employee size"),
+                                fieldWithPath("licensePlate").description("Employee licensePlate"),
+                                fieldWithPath("type").description("Employee type"),
+                                fieldWithPath("forHandicap").description("Employee forHandicap")
                         ),
                         responseFields(
                                 fieldWithPath("id").description("Employee id"),
@@ -84,15 +87,19 @@ public class EmployeeControllerTest {
                                 fieldWithPath("lastName").description("Employee last name"),
                                 fieldWithPath("gender").description("Employee gender"),
                                 fieldWithPath("department").description("Employee department"),
-                                fieldWithPath("dateOfBirth").description("Employee date of birth")
-                        )));
+                                fieldWithPath("dateOfBirth").description("Employee date of birth"),
+                                fieldWithPath("size").description("Employee size"),
+                                fieldWithPath("licensePlate").description("Employee licensePlate"),
+                                fieldWithPath("type").description("Employee type"),
+                                fieldWithPath("forHandicap").description("Employee forHandicap")
+                                )));
     }
 
     @Test
     public void shouldUpdateEmployee() throws Exception {
-        EmployeeRequestDto employee = to(anEmployee("Mradul", "Pandey"));
+        EmployeeRequestDto employee = to(ParkingTestUtils.aVehicle("Mradul", "Pandey"));
 
-        when(parkingService.updateEmployee(Mockito.any())).thenReturn(anEmployee(1L, "mradul", "pandey"));
+        when(parkingService.updateEmployee(Mockito.any())).thenReturn(aVehicle(1L, "mradul", "pandey"));
 
         String content = toJson(employee);
         mockMvc.perform(put("/api/employee/{id}",1L)
@@ -108,7 +115,12 @@ public class EmployeeControllerTest {
                                 fieldWithPath("lastName").description("Employee last name"),
                                 fieldWithPath("gender").description("Employee gender"),
                                 fieldWithPath("department").description("Employee department"),
-                                fieldWithPath("dateOfBirth").description("Employee date of birth")
+                                fieldWithPath("dateOfBirth").description("Employee date of birth"),
+                                fieldWithPath("size").description("Employee size"),
+                                fieldWithPath("licensePlate").description("Employee licensePlate"),
+                                fieldWithPath("type").description("Employee type"),
+                                fieldWithPath("forHandicap").description("Employee forHandicap")
+
                         ),
                         responseFields(
                                 fieldWithPath("id").description("Employee id"),
@@ -116,15 +128,20 @@ public class EmployeeControllerTest {
                                 fieldWithPath("lastName").description("Employee last name"),
                                 fieldWithPath("gender").description("Employee gender"),
                                 fieldWithPath("department").description("Employee department"),
-                                fieldWithPath("dateOfBirth").description("Employee date of birth")
+                                fieldWithPath("dateOfBirth").description("Employee date of birth"),
+                                fieldWithPath("size").description("Employee size"),
+                                fieldWithPath("licensePlate").description("Employee licensePlate"),
+                                fieldWithPath("type").description("Employee type"),
+                                fieldWithPath("forHandicap").description("Employee forHandicap")
+
                         )));
     }
 
     @Test
     public void shouldGetAllTheEmployee() throws Exception {
-        EmployeeRequestDto employee = to(anEmployee("Mradul", "Pandey"));
+        EmployeeRequestDto employee = to(ParkingTestUtils.aVehicle("Mradul", "Pandey"));
 
-        Page<Employee> employeePage = new PageImpl(asList(anEmployee(1L,"Mradul", "Pandey")), of(0,10, Sort.by(ASC,"id")), 1);
+        Page<Employee> employeePage = new PageImpl(asList(aVehicle(1L,"Mradul", "Pandey")), of(0,10, Sort.by(ASC,"id")), 1);
 
         when(parkingService.getAllEmployee(Mockito.any())).thenReturn(employeePage);
 
@@ -140,6 +157,10 @@ public class EmployeeControllerTest {
                                 fieldWithPath("content.[0].gender").description("Employee gender"),
                                 fieldWithPath("content.[0].department").description("Employee department"),
                                 fieldWithPath("content.[0].dateOfBirth").description("Employee date of birth"),
+                                fieldWithPath("content.[0].size").description("Employee licensePlate"),
+                                fieldWithPath("content.[0].type").description("Employee type"),
+                                fieldWithPath("content.[0].licensePlate").description("Employee size"),
+                                fieldWithPath("content.[0].forHandicap").description("Employee forHandicap"),
                                 fieldWithPath("totalElements").description("Total elements"),
                                 fieldWithPath("numberOfElements").description("Number of elements in page"),
                                 fieldWithPath("totalPages").description("Total pages"),
